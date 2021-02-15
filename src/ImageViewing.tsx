@@ -28,7 +28,7 @@ import { ImageSource } from "./@types";
 
 type Props = {
   images: ImageSource[];
-  imageIndex: number;
+  initialIndex: number;
   visible: boolean;
   onRequestClose: () => void;
   onLongPress?: (image: ImageSource) => void;
@@ -51,7 +51,7 @@ const SCREEN_WIDTH = SCREEN.width;
 
 function ImageViewing({
   images,
-  imageIndex,
+  initialIndex,
   visible,
   onRequestClose,
   onLongPress = () => {},
@@ -67,7 +67,7 @@ function ImageViewing({
 }: Props) {
   const imageList = React.createRef<VirtualizedList<ImageSource>>();
   const [opacity, onRequestCloseEnhanced] = useRequestClose(onRequestClose);
-  const [currentImageIndex, onScroll] = useImageIndexChange(imageIndex, SCREEN);
+  const [currentImageIndex, onScroll, setImageIndex] = useImageIndexChange(initialIndex, SCREEN);
   const [
     headerTransform,
     footerTransform,
@@ -78,6 +78,7 @@ function ImageViewing({
     if (onImageIndexChange) {
       onImageIndexChange(currentImageIndex);
     }
+    imageList.current && imageList.current.scrollToIndex({index: currentImageIndex})
   }, [currentImageIndex]);
 
   const onZoom = useCallback(
@@ -126,7 +127,7 @@ function ImageViewing({
           maxToRenderPerBatch={1}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
-          initialScrollIndex={imageIndex}
+          initialScrollIndex={initialIndex}
           getItem={(_, index) => images[index]}
           getItemCount={() => images.length}
           getItemLayout={(_, index) => ({
@@ -155,6 +156,7 @@ function ImageViewing({
           >
             {React.createElement(FooterComponent, {
               imageIndex: currentImageIndex,
+              setImageIndex,
             })}
           </Animated.View>
         )}
@@ -183,7 +185,7 @@ const styles = StyleSheet.create({
 });
 
 const EnhancedImageViewing = (props: Props) => (
-  <ImageViewing key={props.imageIndex} {...props} />
+  <ImageViewing key={props.initialIndex} {...props} />
 );
 
 export default EnhancedImageViewing;

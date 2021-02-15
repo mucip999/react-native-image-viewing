@@ -71,7 +71,7 @@ export default function App() {
       </View>
       <ImageViewing
         images={getImageSource(images)}
-        imageIndex={currentImageIndex}
+        initialIndex={currentImageIndex}
         presentationStyle="overFullScreen"
         visible={isVisible}
         onRequestClose={onRequestClose}
