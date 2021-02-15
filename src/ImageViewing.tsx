@@ -40,7 +40,7 @@ type Props = {
   doubleTapToZoomEnabled?: boolean;
   delayLongPress?: number;
   HeaderComponent?: ComponentType<{ imageIndex: number }>;
-  FooterComponent?: ComponentType<{ imageIndex: number }>;
+  FooterComponent?: ComponentType<{ imageIndex: number , setImageIndex: any}>;
 };
 
 const DEFAULT_ANIMATION_TYPE = "fade";
@@ -78,6 +78,7 @@ function ImageViewing({
     if (onImageIndexChange) {
       onImageIndexChange(currentImageIndex);
     }
+    // @ts-ignore
     imageList.current && imageList.current.scrollToIndex({index: currentImageIndex})
   }, [currentImageIndex]);
 
