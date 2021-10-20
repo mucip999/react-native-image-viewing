@@ -46,6 +46,7 @@ function ImageViewing({ images, initialIndex, visible, onRequestClose, onLongPre
           {typeof HeaderComponent !== "undefined"
         ? (React.createElement(HeaderComponent, {
             imageIndex: currentImageIndex,
+            setImageIndex,
         }))
         : (<ImageDefaultHeader onRequestClose={onRequestCloseEnhanced}/>)}
         </Animated.View>

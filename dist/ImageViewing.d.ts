@@ -23,6 +23,7 @@ declare type Props = {
     delayLongPress?: number;
     HeaderComponent?: ComponentType<{
         imageIndex: number;
+        setImageIndex: any;
     }>;
     FooterComponent?: ComponentType<{
         imageIndex: number;
