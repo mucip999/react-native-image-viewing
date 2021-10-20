@@ -39,7 +39,7 @@ type Props = {
   swipeToCloseEnabled?: boolean;
   doubleTapToZoomEnabled?: boolean;
   delayLongPress?: number;
-  HeaderComponent?: ComponentType<{ imageIndex: number }>;
+  HeaderComponent?: ComponentType<{ imageIndex: number , setImageIndex: any }>;
   FooterComponent?: ComponentType<{ imageIndex: number , setImageIndex: any}>;
 };
 
@@ -112,6 +112,7 @@ function ImageViewing({
             ? (
               React.createElement(HeaderComponent, {
                 imageIndex: currentImageIndex,
+                setImageIndex,
               })
             )
             : (
